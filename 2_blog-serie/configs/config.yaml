@@ -1,0 +1,49 @@
+Server:
+  RunMode: debug
+  HttpPort: :8000
+  ReadTimeout: 60
+  WriteTimeout: 60
+APP:
+  DefaultPageSize: 10
+  MaxPageSize: 100
+  DefaultContextTimeout: 60
+  LogSavePath: 2_blog-serie/storage/logs
+  LogFileName: app
+  LogFileExt: .log
+  UploadSavePath: 2_blog-serie/storage/uploads
+  UploadServerUrl: http://127.0.0.1:8000/static
+  UploadImageMaxSize: 5  # MB
+  UploadImageAllowExts:
+    - .jpg
+    - .jpeg
+    - .png
+
+Database:
+  DaType: mysql
+  UserName: root
+  Password: 123456
+  Host: 192.168.172.129:3306
+  DBName: blog_service
+  TablePrefix: blog_
+  Charset: utf8
+  ParseTime: True
+  MaxIdleConns: 10
+  MaxOpenConns: 30
+
+JWT:
+  Secret: eddycjy
+  Issuer: blog-service
+  Expire: 7200
+
+
+
+Email:
+  Host: smtp.126.com
+  Port: 465
+  IsSSL: true
+  Username: llc_is_sb@126.com
+  Password: DRrD7dx58L33JMPK
+  From: llc_is_sb@126.com
+  To:
+    - llc_is_sb@126.com
+    
