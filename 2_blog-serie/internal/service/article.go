@@ -20,24 +20,24 @@ type ArticleListRequest struct {
 }
 
 type CreateArticleRequest struct {
-	TagID         uint32 `form:"tag_id" binding:"required,gte=1"`
-	Title         string `form:"title" binding:"required,min=2,max=100"`
-	Desc          string `form:"desc" binding:"required,min=2,max=255"`
-	Content       string `form:"content" binding:"required,min=2,max=4294967295"`
-	CoverImageUrl string `form:"cover_image_url" binding:"required,url"`
-	CreatedBy     string `form:"created_by" binding:"required,min=2,max=100"`
-	State         uint8  `form:"state,default=1" binding:"oneof=0 1"`
+	TagIDs        []uint32 `form:"tag_ids" binding:"required,gte=1"`
+	Title         string   `form:"title" binding:"required,min=2,max=100"`
+	Desc          string   `form:"desc" binding:"required,min=2,max=255"`
+	Content       string   `form:"content" binding:"required,min=2,max=4294967295"`
+	CoverImageUrl string   `form:"cover_image_url" binding:"required,url"`
+	CreatedBy     string   `form:"created_by" binding:"required,min=2,max=100"`
+	State         uint8    `form:"state,default=1" binding:"oneof=0 1"`
 }
 
 type UpdateArticleRequest struct {
-	ID            uint32 `form:"id" binding:"required,gte=1"`
-	TagID         uint32 `form:"tag_id" `
-	Title         string `form:"title" binding:"min=0,max=100"`
-	Desc          string `form:"desc" binding:"min=0,max=255"`
-	Content       string `form:"content" binding:"min=0,max=4294967295"`
-	CoverImageUrl string `form:"cover_image_url" `
-	ModifiedBy    string `form:"modified_by" binding:"required,min=2,max=100"`
-	State         uint8  `form:"state,default=1" binding:"oneof=0 1"`
+	ID            uint32   `form:"id" binding:"required,gte=1"`
+	TagIDs        []uint32 `form:"tag_ids" `
+	Title         string   `form:"title" binding:"min=0,max=100"`
+	Desc          string   `form:"desc" binding:"min=0,max=255"`
+	Content       string   `form:"content" binding:"min=0,max=4294967295"`
+	CoverImageUrl string   `form:"cover_image_url" `
+	ModifiedBy    string   `form:"modified_by" binding:"required,min=2,max=100"`
+	State         uint8    `form:"state,default=1" binding:"oneof=0 1"`
 }
 
 type DeleteArticleRequest struct {
@@ -45,13 +45,13 @@ type DeleteArticleRequest struct {
 }
 
 type Article struct {
-	ID            uint32     `json:"id"`
-	Title         string     `json:"title"`
-	Desc          string     `json:"desc"`
-	Content       string     `json:"content"`
-	CoverImageUrl string     `json:"cover_image_url"`
-	State         uint8      `json:"state"`
-	Tag           *model.Tag `json:"tag"`
+	ID            uint32       `json:"id"`
+	Title         string       `json:"title"`
+	Desc          string       `json:"desc"`
+	Content       string       `json:"content"`
+	CoverImageUrl string       `json:"cover_image_url"`
+	State         uint8        `json:"state"`
+	Tags          []*model.Tag `json:"tag"`
 }
 
 func (svc *Service) GetArticle(param *ArticleRequest) (*Article, error) {
@@ -75,16 +75,19 @@ func (svc *Service) GetArticle(param *ArticleRequest) (*Article, error) {
 		return nil, err
 	}
 
-	articleTag, err := svc.dao.GetArticleTagByAID(article.ID, tx)
+	articleTags, err := svc.dao.GetArticleTagsByAID(article.ID, tx)
 	if err != nil {
 		tx.Rollback()
 		return nil, err
 	}
-
-	tag, err := svc.dao.GetTag(articleTag.TagID, model.STATE_OPEN, tx)
-	if err != nil {
-		tx.Rollback()
-		return nil, err
+	var tags []*model.Tag
+	for _, articleTag := range articleTags {
+		tag, err := svc.dao.GetTag(articleTag.TagID, model.STATE_OPEN, tx)
+		if err != nil {
+			tx.Rollback()
+			return nil, err
+		}
+		tags = append(tags, &tag)
 	}
 
 	// 提交事务
@@ -102,13 +105,14 @@ func (svc *Service) GetArticle(param *ArticleRequest) (*Article, error) {
 		Content:       article.Content,
 		CoverImageUrl: article.CoverImageUrl,
 		State:         article.State,
-		Tag:           &tag,
+		Tags:          tags,
 	}, nil
 
 }
 
 func (svc *Service) GetListArticle(param *ArticleListRequest, pager *app.Pager) ([]*Article, int, error) {
 
+	//统计TagID 的数量
 	articleCount, err := svc.dao.CountArticleListByTagID(param.TagID, param.State)
 	log.Println(articleCount)
 	if err != nil {
@@ -116,6 +120,7 @@ func (svc *Service) GetListArticle(param *ArticleListRequest, pager *app.Pager) 
 	}
 
 	//这个地方 底层肯定需要并表查询 ，因为 返回的结果 既有AID 又有TID
+	//通过 TagID把文章找出来
 	articles, err := svc.dao.GetArticleListByTagID(param.TagID, param.State, pager.Page, pager.PageSize)
 	if err != nil {
 		return nil, 0, err
@@ -123,18 +128,22 @@ func (svc *Service) GetListArticle(param *ArticleListRequest, pager *app.Pager) 
 
 	var articleList []*Article
 
+	//通过list展示的articles list 的tag 只展示和他索引相关的tag信息
 	for _, article := range articles {
+
 		articleList = append(articleList, &Article{
 			ID:            article.ArticleID,
 			Title:         article.ArticleTitle,
 			Desc:          article.ArticleDesc,
 			Content:       article.Content,
 			CoverImageUrl: article.CoverImageUrl,
-			Tag: &model.Tag{
-				Model: &model.Model{
-					ID: article.TagID,
+			Tags: []*model.Tag{
+				&model.Tag{
+					Model: &model.Model{
+						ID: article.TagID,
+					},
+					Name: article.TagName,
 				},
-				Name: article.TagName,
 			},
 		})
 	}
@@ -162,7 +171,7 @@ func (svc *Service) CreateArticle(param *CreateArticleRequest) error {
 	}
 
 	//新建了 一个 article，那么应该也要新建一下对应的 article 的id 和  tag 的tid对应表
-	err = svc.dao.CreateArticleTag(article.ID, param.TagID, param.CreatedBy, tx)
+	err = svc.dao.CreateArticleTags(article.ID, param.TagIDs, param.CreatedBy, tx)
 	if err != nil {
 		tx.Rollback()
 		return err
@@ -170,6 +179,7 @@ func (svc *Service) CreateArticle(param *CreateArticleRequest) error {
 
 	return tx.Commit().Error
 }
+
 func (svc *Service) UpdateArticle(param *UpdateArticleRequest) error {
 	tx := svc.dao.Engine.Begin()
 	if tx.Error != nil {
@@ -197,7 +207,7 @@ func (svc *Service) UpdateArticle(param *UpdateArticleRequest) error {
 		return err
 	}
 	//这个表 可能也许要修，因为他可能调整他所在的标签号
-	err = svc.dao.UpdateArticleTag(param.ID, param.TagID, param.ModifiedBy, tx)
+	err = svc.dao.UpdateArticleTags(param.ID, param.TagIDs, param.ModifiedBy, tx)
 	if err != nil {
 		tx.Rollback()
 		return err

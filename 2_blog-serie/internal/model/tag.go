@@ -23,7 +23,7 @@ func (t Tag) TableName() string {
 // Session(&gorm.Session{})
 func (t Tag) Get(db *gorm.DB) (Tag, error) {
 	var tag Tag
-	err := db.Where("id = ? AND is_del = ? AND state = ?", t.ID, 0, t.State).First(&tag).Error
+	err := db.Where("id = ? AND is_del = ? AND state = ?", t.ID, 0, t.State).Find(&tag).Error
 
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return tag, err

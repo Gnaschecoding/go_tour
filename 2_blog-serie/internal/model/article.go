@@ -2,7 +2,6 @@ package model
 
 import (
 	"Golang_Programming_Journey/2_blog-serie/pkg/app"
-	"fmt"
 	"gorm.io/gorm"
 )
 
@@ -104,25 +103,16 @@ func (a Article) ListByTagID(db *gorm.DB, tagID uint32, pageOffset, pageSize int
 
 	return articles, nil
 }
+
+// 统计tagId 有多少文章
 func (a Article) CountByTagID(db *gorm.DB, tagID uint32) (int, error) {
 	var count int64
 
-	query := db.Session(&gorm.Session{}).Table(ArticleTag{}.TableName()+" AS at").
+	err := db.Session(&gorm.Session{}).Table(ArticleTag{}.TableName()+" AS at").
 		Joins("LEFT JOIN `"+Tag{}.TableName()+"` AS t ON at.tag_id = t.id").
 		Joins("LEFT JOIN `"+Article{}.TableName()+"` AS ar ON at.article_id = ar.id").
 		Where("at.`tag_id` = ? AND ar.state = ? AND ar.is_del = ?", tagID, a.State, 0).
-		Count(&count)
+		Count(&count).Error
 
-	fmt.Println("SQL String is:", query.Statement.SQL.String()) // 打印生成的 SQL 语句
-
-	//err := db.Where(ArticleTag{}.TableName()+" AS at").
-	//	Joins("LEFT JOIN `"+Tag{}.TableName()+"` AS t ON at.tag_id = t.id").
-	//	Joins("LEFT JOIN `"+Article{}.TableName()+"` AS ar ON at.article_id = ar.id").
-	//	Where("at.`tag_id` = ? AND ar.state = ? AND ar.is_del = ?", tagID, a.State, 0).
-	//	Count(&count).Error
-	//
-	//if err != nil {
-	//	return 0, err
-	//}
-	return int(count), nil
+	return int(count), err
 }

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="924b255a-ca73-4bd2-b3e4-a81d92695527" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://D:/software/Golang" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://D:/learning/Golang/pkg/mod/github.com/eddycjy/opentracing-gorm@v0.0.0-20200209122056-516a807d2182/otgorm.go" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2tsbOZSodwZxhoAu3VixzS9a3Mq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Build.go build Golang_Programming_Journey.executor": "Run",
+    "Go Build.go build Golang_Programming_Journey/1_Command _Line_Application/1_1_3_flag_StringVar.executor": "Run",
+    "Go Build.go build Golang_Programming_Journey/2_blog-serie.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "master",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "C:/Users/shXu",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\shXu\Desktop\Golang_Programming_Journey\2_blog-serie\internal\routers\api" />
+      <recent name="C:\Users\shXu\Desktop\Golang_Programming_Journey\2_blog-serie\internal\middleware" />
+      <recent name="C:\Users\shXu\Desktop\Golang_Programming_Journey\2_blog-serie\internal\routers\api\v1" />
+      <recent name="C:\Users\shXu\Desktop\Golang_Programming_Journey\2_blog-serie\internal\service" />
+      <recent name="C:\Users\shXu\Desktop\Golang_Programming_Journey\2_blog-serie\internal\model" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.go build Golang_Programming_Journey/2_blog-serie">
+    <configuration name="go build Golang_Programming_Journey" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="Golang_Programming_Journey" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Golang_Programming_Journey" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build Golang_Programming_Journey/1_Command _Line_Application/1_1_3_flag_StringVar" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="Golang_Programming_Journey" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Golang_Programming_Journey/1_Command _Line_Application/1_1_3_flag_StringVar" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/1_Command _Line_Application/1_1_3_flag_StringVar/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build Golang_Programming_Journey/2_blog-serie" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="Golang_Programming_Journey" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="Golang_Programming_Journey/2_blog-serie" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/2_blog-serie/test.go" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build Golang_Programming_Journey/2_blog-serie" />
+        <item itemvalue="Go Build.go build Golang_Programming_Journey" />
+        <item itemvalue="Go Build.go build Golang_Programming_Journey/1_Command _Line_Application/1_1_3_flag_StringVar" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-33c477a475b1-e0158606a674-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-241.19072.18" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-GO-241.19072.18" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
