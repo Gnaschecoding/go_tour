@@ -47,3 +47,22 @@ Email:
   To:
     - llc_is_sb@126.com
     
+Redis:
+  network: tcp              # Redis 网络类型，通常为 tcp
+  addr: localhost:6379      # Redis 服务器地址，格式为 "host:port"
+  #username: root            # Redis 认证的用户名   #redis 版本低于 1.6的不能指定用户名，不然无法验证
+  password: 123456          # Redis 认证的密码
+  dialTimeout: 5            # 建立连接的超时时间，单位为秒
+  readTimeout: 3            # 读取操作的超时时间，单位为秒
+  writeTimeout: 3           # 写入操作的超时时间，单位为秒
+  poolSize: 100             # 连接池的最大连接数
+  minIdleConns: 10          # 连接池中的最小空闲连接数
+  maxIdleConns: 50          # 连接池中的最大空闲连接数
+  maxRetries: 3             # 操作失败后的最大重试次数
+  DB: 1                     # 表示存入的数据0号库
+
+Limiter:
+  FillInterval: 20           #每次填充的时间间隔
+  Capacity: 10              #容量
+  Quantum: 10               #每次填充的数量
+  Expiration: 3600          #3600秒后自动过期

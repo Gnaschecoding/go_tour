@@ -11,17 +11,35 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
-	"time"
 )
 
-var methodLimiters = limiter.NewMethodLimiter().AddBuckets(
-	limiter.LimiterBucketRule{
-		Key:          "/auth",
-		FillInterval: time.Second,
-		Capacity:     10,
-		Quantum:      10,
-	},
-)
+// 基于本地计数的 限流器
+var methodLimiter limiter.LimiterIface
+
+// 创建 Redis 限流器
+var redisLimiter limiter.LimiterIface
+
+func returnLimiter() limiter.LimiterIface {
+	redisLimiter = limiter.NewRedisLimiter(global.RedisClient, "rate_limit:").AddBuckets(
+		limiter.LimiterBucketRule{
+			Key:          "/auth",
+			FillInterval: global.LimiterSetting.FillInterval,
+			Capacity:     global.LimiterSetting.Capacity,
+			Quantum:      global.LimiterSetting.Quantum,
+		},
+	)
+
+	methodLimiter = limiter.NewMethodLimiter().AddBuckets(
+		limiter.LimiterBucketRule{
+			Key:          "/auth",
+			FillInterval: global.LimiterSetting.FillInterval,
+			Capacity:     global.LimiterSetting.Capacity,
+			Quantum:      global.LimiterSetting.Quantum,
+		},
+	)
+
+	return redisLimiter
+}
 
 func NewRouter() *gin.Engine {
 	r := gin.New()
@@ -36,7 +54,7 @@ func NewRouter() *gin.Engine {
 
 	r.Use(middleware.Tracing())
 
-	r.Use(middleware.RateLimiter(methodLimiters))
+	r.Use(middleware.RateLimiter(returnLimiter()))
 	r.Use(middleware.ContextTimeout(global.AppSetting.DefaultContextTimeout))
 	r.Use(middleware.AppInfo())
 	r.Use(middleware.Translations())

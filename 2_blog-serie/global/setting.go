@@ -12,4 +12,6 @@ var (
 	JWTSetting      *setting.JWTSettings
 	Logger          *logger.Logger
 	EmailSetting    *setting.EmailSettings
+	RedisSetting    *setting.RedisSettings
+	LimiterSetting  *setting.LimiterSettings
 )
