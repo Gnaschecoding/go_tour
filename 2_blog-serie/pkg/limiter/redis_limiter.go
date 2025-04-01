@@ -92,7 +92,7 @@ func (l *RedisLimiter) fillTokens(key string, interval time.Duration, quantum, c
 		ctx := context.Background()
 
 		// 使用 Lua 脚本确保原子性增加令牌且不会超出容量
-		_, err := l.client.Eval(ctx, luaScript, []string{key}, quantum, capacity, global.LimiterSetting.Expiration).Result()
+		_, err := l.client.Eval(ctx, luaScript, []string{key}, quantum, capacity, global.LimiterSetting.Expiration*time.Second).Result()
 		if err != nil {
 			// 记录日志，防止 Redis 故障时出错
 			global.Logger.Errorf(ctx, "Failed to execute luaScript script err:%v", err)
@@ -122,7 +122,7 @@ func (l *RedisLimiter) TakeToken(key string) bool {
 				-- 如果没有可用令牌，返回 0 表示获取令牌失败
 		return 0
     `
-	result, err := l.client.Eval(ctx, script, []string{key}, global.LimiterSetting.Expiration).Int64()
+	result, err := l.client.Eval(ctx, script, []string{key}, global.LimiterSetting.Expiration*time.Second).Int64()
 
 	if err != nil {
 		return false
