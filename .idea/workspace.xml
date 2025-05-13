@@ -4,7 +4,51 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="924b255a-ca73-4bd2-b3e4-a81d92695527" name="Changes" comment="" />
+    <list default="true" id="924b255a-ca73-4bd2-b3e4-a81d92695527" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/3_tag_service/client/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/cmd/main1/mian1.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/cmd/main2/main2.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/cmd/main3/main3.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/global/tracer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/internal/middleware/client_interceptor.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/internal/middleware/server_interceptor.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/pkg/bapi/api.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/pkg/errcode/common_error.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/pkg/errcode/errcode.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/pkg/errcode/module_error.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/pkg/errcode/rpc_error.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/pkg/metatext/metadata.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/pkg/tracer/tracer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/proto/google/api/annotations.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/proto/google/api/http.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/server/tag.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/favicon-16x16.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/favicon-32x32.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/oauth2-redirect.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-initializer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui-bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui-bundle.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui-es-bundle-core.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui-es-bundle-core.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui-es-bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui-es-bundle.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui-standalone-preset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui-standalone-preset.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui.css.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3_tag_service/third_party/swagger-ui/swagger-ui.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2_blog-serie/configs/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/2_blog-serie/configs/config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2_blog-serie/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/2_blog-serie/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2_blog-serie/pkg/limiter/redis_limiter.go" beforeDir="false" afterPath="$PROJECT_DIR$/2_blog-serie/pkg/limiter/redis_limiter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2_blog-serie/storage/logs/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/2_blog-serie/storage/logs/app.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,7 +89,7 @@
     &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/shXu&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/shXu/Desktop/Golang_Programming_Journey&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;

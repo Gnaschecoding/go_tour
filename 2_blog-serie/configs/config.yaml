@@ -62,7 +62,7 @@ Redis:
   DB: 1                     # 表示存入的数据0号库
 
 Limiter:
-  FillInterval: 20           #每次填充的时间间隔
+  FillInterval: 2           #每次填充的时间间隔
   Capacity: 10              #容量
   Quantum: 10               #每次填充的数量
-  Expiration: 3600          #3600秒后自动过期
+  Expiration: 20            #36秒后自动过期

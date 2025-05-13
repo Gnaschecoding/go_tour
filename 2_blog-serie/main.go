@@ -185,6 +185,7 @@ func SetupSetting() error {
 	global.RedisSetting.DialTimeout *= time.Second
 
 	global.LimiterSetting.FillInterval *= time.Second
+	//global.LimiterSetting.Expiration *= time.Second
 
 	if port != "" {
 		global.ServerSetting.HttpPort = port
