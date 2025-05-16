@@ -1,6 +1,9 @@
 package server
 
 import (
+	"4_chat_room/global"
+	"4_chat_room/logic"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -9,7 +12,7 @@ import (
 // server/home.go
 
 func homeHandleFunc(w http.ResponseWriter, r *http.Request) {
-	tpl, err := template.ParseFiles(rootDir + "/template/home.html")
+	tpl, err := template.ParseFiles(global.RootDir + "/template/home.html")
 	if err != nil {
 		fmt.Fprint(w, "模板解析错误！")
 		return
@@ -20,4 +23,18 @@ func homeHandleFunc(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+}
+
+func userListHandleFunc(w http.ResponseWriter, req *http.Request) {
+	w.Header().Add("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+
+	userList := logic.Broadcaster.GetUserList()
+	b, err := json.Marshal(userList)
+
+	if err != nil {
+		fmt.Fprint(w, `[]`)
+	} else {
+		fmt.Fprint(w, string(b))
+	}
 }

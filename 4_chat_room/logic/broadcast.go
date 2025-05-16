@@ -19,6 +19,10 @@ type broadcaster struct {
 	// 判断该昵称用户是否可进入聊天室（重复与否）：true 能，false 不能
 	checkUserChannel      chan string
 	checkUserCanInChannel chan bool
+
+	// 获取用户列表
+	requestUsersChannel chan struct{}
+	usersChannel        chan []*User
 }
 
 var Broadcaster = &broadcaster{
@@ -30,6 +34,9 @@ var Broadcaster = &broadcaster{
 
 	checkUserChannel:      make(chan string),
 	checkUserCanInChannel: make(chan bool),
+
+	requestUsersChannel: make(chan struct{}),
+	usersChannel:        make(chan []*User),
 }
 
 // Start 启动广播器
@@ -40,14 +47,14 @@ func (b *broadcaster) Start() {
 		case user := <-b.enteringChannel:
 			// 新用户进入
 			b.users[user.NickName] = user
-			b.sendUserList()
+
+			OfflineProcessor.Send(user)
 		case user := <-b.leavingChannel:
 			// 用户离开
 			delete(b.users, user.NickName)
 			// 避免 goroutine 泄露
 			user.CloseMessageChannel()
 
-			b.sendUserList()
 		case msg := <-b.messageChannel:
 			// 给所有在线用户发送消息
 			if msg.To == "" {
@@ -66,12 +73,20 @@ func (b *broadcaster) Start() {
 					log.Println("user:", msg.To, "not exists!")
 				}
 			}
+			OfflineProcessor.Save(msg)
 		case nickname := <-b.checkUserChannel:
 			if _, ok := b.users[nickname]; ok {
 				b.checkUserCanInChannel <- false
 			} else {
 				b.checkUserCanInChannel <- true
 			}
+		case <-b.requestUsersChannel:
+			userList := make([]*User, 0, len(b.users))
+			for _, user := range b.users {
+				userList = append(userList, user)
+			}
+
+			b.usersChannel <- userList
 		}
 	}
 }
@@ -95,4 +110,9 @@ func (b *broadcaster) UserLeaving(user *User) {
 
 func (b *broadcaster) Broadcast(msg *Message) {
 	b.messageChannel <- msg
+}
+
+func (b *broadcaster) GetUserList() []*User {
+	b.requestUsersChannel <- struct{}{}
+	return <-b.usersChannel
 }

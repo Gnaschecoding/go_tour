@@ -27,7 +27,7 @@ type Message struct {
 	Ats []string `json:"ats"`
 
 	// 用户列表不通过 WebSocket 下发
-	Users []*User `json:"users"`
+	//Users []*User `json:"users"`
 }
 
 func NewMessage(user *User, content, clientTime string) *Message {
