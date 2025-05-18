@@ -8,6 +8,13 @@ type Getter interface {
 
 type GetFunc func(key string) interface{}
 
+func (t *TourCache) Set(key string, val interface{}) {
+	if val == nil {
+		return
+	}
+	t.mainCache.Set(key, val)
+}
+
 func (f GetFunc) Get(key string) interface{} {
 	return f(key)
 }
